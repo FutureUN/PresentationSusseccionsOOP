@@ -12,8 +12,8 @@ Made possible thanks to...
 ## Installation
 
  ```sh
- $ git clone https://github.com/FutureUN/FuturePresentation.git 
- $ cd FuturePresentation
+ $ git clone https://github.com/FutureUN/PresentationSusseccionsOOP 
+ $ cd PresentationSusseccionsOOP
  ```
 
 ## Folder Structure
