@@ -25,25 +25,186 @@ by  [Sebastian Chaves](https://github.com/adamantwharf) - [Laura Santos](https:/
 H:
 
 # Index
-
 <!-- .slide: data-background="#7E2121" --> 
-
  1. Super Class <!-- .element: class="fragment" data-fragment-index="1"-->
  1. Abundant Numbers <!-- .element: class="fragment" data-fragment-index="2"-->
  1. Leyland Numbers <!-- .element: class="fragment" data-fragment-index="3"-->
  1. Composite Numbers <!-- .element: class="fragment" data-fragment-index="4"-->
+ 1. Representations <!-- .element: class="fragment" data-fragment-index="5"-->
  
-	
-H:
 
-# Abundant Numbers 
+H:
 <!-- .slide: data-background="#005050" -->
+# SuperClass 
+
+ 
+V:
+ 
+## What is it about?
+Code of  class <!-- .element: class="fragment" data-fragment-index="1"-->
+V:
+## Susseccion
+### Processing
+```java
+<!--
+ import java.util.Arrays;
+
+abstract class Sequence {
+  /**
+   * The sequence author
+   */
+  abstract String author();
+  
+  /**
+   * The sequence description
+   */
+  abstract String description();
+  
+  /**
+   * Computes the nth sequence term
+   */
+  abstract int compute(int n);
+  
+  /**
+   * Returns the first n seq terms as an array.
+   */
+  int [] toArray(int n) {
+    int[] seq = new int[n];
+    for (int i=0; i<n; i++)
+      seq[i] = compute(i+1);
+    return seq;
+  }
+  
+  /**
+   * Returns the first n seq terms as a string.
+   * Sequence may then simply be printed as: println(sequence.toString(n))
+   */
+  String toString(int n) {
+    return Arrays.toString(toArray(n));
+  }
+  
+  // All display functions must scale the canvas properly
+  
+  /**
+   * Display n seq terms as you wish
+   */
+  abstract void display(int n);
+   
+  /**
+   * Display n seq terms as a bar chart: https://en.wikipedia.org/wiki/Bar_chart
+   * Warning: Should be implemented here in the super class!
+   */
+  void barChart(int n) {
+    //TODO misssing implementation
+  }
+  
+  /**
+   * Display n seq terms as a line chart: https://en.wikipedia.org/wiki/Line_chart
+   * Warning: Should be implemented here in the super class!
+   */
+  void lineChart(int n) {
+    //TODO misssing implementation
+  }
+-->
+ ```
+V:
+## BarChart implementation
+```java
+<!--
+ void barChart(int n) {
+      int[] arr = toArray(n);
+      int count = 0;
+      for(int i=0; i<n;i++)
+      {
+          float wid = map (arr[i], arr[0],arr[n-1],arr[0],width);
+          stroke(hue,100,30);
+          fill ( 255);
+          rect(0,(height/n)*count,wid,height/n);
+          count++;
+      }  
+  }
+-->
+ ```
+V:
+## LineChart implementation
+```java
+<!--
+ void lineChart(int n) {
+    float xpos=0;
+    float ypos=height;
+    int nth=1;
+    int[] seq=  toArray(n);
+    for ( int i = 0; i < n; i ++)
+    {
+      float xpos1=  map (nth, 0, n, 0, width);
+      nth ++;
+      float ypos1 = map ( seq[i], 0, seq[n-1], height, 0);
+      fill ( 255);
+      ellipse ( xpos1, ypos1, 6, 6);
+      stroke (255);
+      if ( i == 0)
+        stroke(0);    
+      line (xpos, ypos, xpos1, ypos1); 
+      xpos=xpos1;
+      ypos=ypos1;
+    }
+}
+-->
+ ```
+V:
+## CurveFitting implementation
+```java
+<!--
+ void curveFitting(int n) {
+    noFill();
+    if ( n < 3 )
+      return;
+    float xpos=0;
+    float ypos=height;
+    int nth=1;
+    int[] seq=  toArray(n);
+    float x = map (nth, 0, n, 0, width);
+    float y = map (seq[0], 0, seq[n-1], height , 0);
+    float x1 = map (nth + 1, 0, n, 0, width);
+    float y1 = map (seq[1], 0, seq[n-1], height , 0);
+    float x2 = map (nth + 2, 0, n, 0, width);
+    float y2 = map (seq[2], 0, seq[n-1], height , 0);
+    stroke ( 255);
+    curve (x,y,x,y,x1,y1,x2,y2); 
+    nth ++;
+    for ( int i = 1; i < n - 2; i ++)
+    {
+      x1 =  map (nth, 0, n, 0, width);
+      y1 = map (seq[i], 0, seq[n-1], height , 0);
+      x2 = map (nth + 1, 0, n, 0, width);
+      y2 = map (seq[i + 1], 0, seq[n-1], height , 0);
+      float x3 = map (nth + 2, 0, n, 0, width);
+      float y3 = map (seq[i + 2], 0, seq[n-1], height , 0);
+      nth ++;
+      stroke (255);
+      curve ( x,y,x1,y1,x2,y2,x3,y3);
+      
+      x = x1;
+      y = y1;
+    }
+    x1 = map (nth, 0, n, 0, width);
+    y1 = map (seq[n-2], 0, seq[n-1], height , 0);
+    x2 = map (nth + 1, 0, n, 0, width);
+    y2 = map (seq[n-1], 0, seq[n-1], height , 0);   
+    stroke ( 255);
+    curve ( x,y,x1,y1,x2,y2,x2,y2);
+   }
+-->
+ ```
+
+H:
+<!-- .slide: data-background="#7E2121"  -->
+# Abundant Numbers 
+
 V:
  
  ## What is it about?
- Explanation of suseccion <!-- .element: class="fragment" data-fragment-index="1"-->
-
- Important functions used in the code<!-- .element: class="fragment" data-fragment-index="2"-->
+ Explanation of susseccion <!-- .element: class="fragment" data-fragment-index="1"-->
 
  The final code <!-- .element: class="fragment" data-fragment-index="3"--> 
 V:
@@ -65,212 +226,104 @@ Abundance:4  <!-- .element: class="fragment" data-fragment-index="3"-->
 
 > 16 Is grater than 12 <!-- .element: class="fragment" data-fragment-index="4"-->
 
-V:
-## Important functions used in the code (explanation)
-### Sum_of_div
-```java
-<!--
-int sum_of_div ( int n )
-{
-    tmp.append(n);
-    int sum = 0;
-    for ( int i = 1; i < n ; i ++)
-        if ( n % i == 0 )
-        {
-            sum = sum + i;
-            tmp.append(i);
-        }
-    return sum;    
-}
--->
- ```
+
 V:
 ## Code Processing: 
+A subclass of Sequence
 ```java
 <!-- 
-//Better testing 
-ArrayList<IntList>  abundants = new ArrayList <IntList>();
-IntList tmp = new IntList();
-int sum_of_div ( int n )
-{
-  tmp.append(n);
-  int sum = 0;
-  for ( int i = 1; i < n ; i ++)
-    if ( n % i == 0 )
+class Abundant extends Sequence{
+  String author()
+  {
+     return "No-Name"; 
+  }
+  String description()
+  {
+    return "An abundant number is a number for wich the sum of its proper divisors is grater than the number itself";
+  }
+  
+  int sum_of_div (int n )
+  {
+     int cont = 0;
+     for ( int i = 1 ; i < n ; i ++)
+       if ( n % i == 0)
+         cont += i;
+     return cont;
+  }
+  int compute ( int n )
+  {
+     int cont = 0;
+     int number = 0;
+     while (true)
+     {
+       number++;
+       int divisors = sum_of_div (number);
+       if ( divisors > number )
+       {
+            cont ++;
+       }
+       if (cont == n)
+         break;
+     }
+     return number;
+  }
+  int[] sumDivArray ( int n )
+  {
+    int [] div = new int[n];
+    for ( int i = 0 ; i < n ; i ++ )
     {
-      sum = sum + i;
-      tmp.append(i);
+      div[i] = sum_of_div(compute(i+1));
     }
-  return sum;    
-}
-// a comment to test git
-void setup ()
-{
-   size(576,442);
-   background(0,50,50);
-   int n = 10;
-
-   int cont = 0;
-   int number = 1;
-
-   while ( true )
-   {
-     if ( cont == n )
-       break;
-     tmp = new IntList();
-     int sumDiv = sum_of_div(number);
-     if ( number < sumDiv)
+    return div;
+  }
+  void display(int n)
+  {
+     int terms = n;
+     int abundants[][] = new int[2][terms];
+     abundants[0] = toArray(terms);
+     abundants[1] = sumDivArray ( terms);
+     float wth = 0;
+    
+     for (int i = 0 ; i < terms; i ++)
+       wth+= abundants[1][i];
+     float x=0;
+     if ( n < 3 )
+       wth *= 3;
+     for (int i = 0 ; i < terms; i ++)
      {
-       tmp.append(sumDiv);
-       abundants.add(tmp);
-       cont ++ ;
+       x += map (abundants[1][i]/2, 0, wth, 0, width);
+     //  println (x );
+       float radious =map(abundants[0][i], 0, wth, 0, width);
+       fill ( hue, map ( abundants [0][i], 0, abundants[0][terms-1], 0, 100),100);
+       //println ( abundants [0][i] + " 0 "  + abundants[0][terms-1] + " 0 360 MAPEO " +  map ( abundants [0][i], 0,  abundants[0][terms-1], 0, 360));
+       ellipse ( x ,radious/2 + mouseY, radious, radious);
+       //float y = 2 * radious + map (abundants[i][0]/2, 0, wth, 0, 1000);
+       float y = radious + map(abundants[1][i]/2, 0, wth, 0, width) + mouseY;
+       //ellipse ( x ,y, abundants[i][0]/2, abundants[i][0]/2);
+       radious =  map(abundants[1][i], 0, wth, 0, width);
+       fill ( hue + 130, map ( abundants [1][i], 0, abundants[1][terms-1], 0, 100) , 100);
+       ellipse ( x ,y, radious, radious);
+       x +=  map (abundants[1][i]/2, 0, wth, 0, width);
+       //println (x );
      }
-     number ++ ;
-      
-   }
-   for ( int i = 0 ; i < cont ; i ++ )
-   {
-      println (i + " " + abundants.get(i) );
-   }
-   float scale = 3;
-   float x = 0;
-   for ( int xi = 0 ; xi < 6 ; xi ++ )
-   {
-     float radOfSum = abundants.get(xi).get(abundants.get(xi).size() - 1 )/2.0;
-     x += radOfSum  * scale;
-     float radOfNumber = abundants.get(xi).get(0)/2.0;
-     float y =  radOfNumber * scale;
-     fill(255,255,200);
-     noStroke();
-     ellipse(x,y, radOfNumber * 2 * scale ,radOfNumber * 2 * scale);
-     y += radOfNumber* scale;
-     
-     for ( int i = 1 ; i < abundants.get(xi).size(); i ++ )
-     {
-       int size = abundants.get(xi).size();
-       float diamOfActual =abundants.get(xi).get(i);
-       float diamOfFirst = abundants.get(xi).get(1);
-       float diamOfLast = abundants.get(xi).get(size - 2 ) * 1.1;
-       float a = map(diamOfActual,diamOfFirst 
-                 ,diamOfLast,0,255);
-       fill(255,255-a,255-a); 
-       noStroke();
-       y += diamOfActual/2.0 * scale;
-       //println(y);
-       ellipse(x, y , diamOfActual* scale,diamOfActual* scale);
-       y += diamOfActual/2.0 * scale;  
-     }
-     x += radOfSum * scale;
-   }
+  }
 }
 -->
 ```
 
-V:
-## Code JavaScript: 
-```java
-<!-- 
-var sketch = function ( p ) {
 
-    var n = 10; 
-    var abundants =  [];
-    var tmp = new Array();
-    function sum_of_div ( n )
-    {
-    tmp.push(n);
-    var sum = 0;
-    for ( var i = 1; i < n ; i ++)
-        if ( n % i == 0 )
-        {
-        sum = sum + i;
-        tmp.push(i);
-        }
-    return sum;    
-    }
-      p.setup =   function() {
-            
-            p.createCanvas(576, 438);
-            p.noLoop();       
-        }
-        
-        
-        
-        p.draw = function () {
-            p.background(0,50,50);
-        //   console.log("algo");
-            var cont = 0;
-            var number = 1;
-            //ellipse(30,30,30,30);
-            while ( true )
-            {
-                if ( cont == n )
-                    break;
-                tmp = new Array();
-                var sumDiv = sum_of_div(number);
-        //      console.log(sumDiv);
-                
-                if ( number < sumDiv)
-                {
-                    tmp.push(sumDiv);
-                    //console.log(tmp);
-                    abundants.push(tmp);
-                   // console.log(abundants);
-                    cont ++ ;
-                }
-                number ++ ;
-            
-            }
 
-            var scale = 3;
-            var x = 0;
-            for ( var xi = 0 ; xi < 6 ; xi ++ )
-            {
-                var radOfSum = abundants[xi][abundants[xi].length - 1]/2.0;
-                x += radOfSum * scale;
-                var radOfNumber = abundants[xi][0]/2.0;
-                var y =  radOfNumber * scale;
-                p.fill(255,255,200);
-                p.noStroke();
-                p.ellipse(x,y, radOfNumber * 2 *  scale ,radOfNumber * 2 *  scale);
-                y += radOfNumber* scale;
-                
-                for ( var i = 1 ; i < abundants[xi].length; i ++ )
-                {
-                    var length = abundants[xi].length;
-                    var diamOfActual = abundants[xi][i];
-                    var diamOfFirst = abundants[xi][1];
-                    var diamOfLast = abundants[xi][length-2]*1.1;
-                    var a = p.map(diamOfActual,diamOfFirst,diamOfLast,0,255);
-                    p.fill(255,255-a,255-a); 
-                    p.noStroke();
-                    y += diamOfActual/2.0 * scale;
-                    p.ellipse(x, y , diamOfActual* scale,diamOfActual* scale);
-                    y += diamOfActual/2.0 * scale;  
-                }
-                x += radOfSum * scale;
-            }
-            
-    }
-};
-var myp5 = new p5 (sketch, 'abundant_id');
--->
-```
-V:
-##The result 
-
-<div id='abundant_id'> </div>
 
 
 H:
 # Leyland Numbers
-<!-- .slide: data-background="#7E2121"  -->
+<!-- .slide: data-background="#005050" -->
+
 V:
 
 ## What is it about?
 
-Explanation of suseccion <!-- .element: class="fragment" data-fragment-index="1"-->
- 
-Important functions used in the code<!-- .element: class="fragment" data-fragment-index="2"-->
+Explanation of Susseccion <!-- .element: class="fragment" data-fragment-index="1"-->
 
 The final code <!-- .element: class="fragment" data-fragment-index="3"-->
 
@@ -279,9 +332,7 @@ V:
 
 What is?
 >In number theory, a Leyland number is a number of the form **x^y + y^x** where x and y are integers greater than 1.
-
-This requirement is important, since without it every positive integer would be a Leyland number of the form x1 + 1x.
-Also, because of the commutative property of addition, the condition x ≥ y is usually added to avoid double-covering the set of Leyland numbers (so we have 1 < y ≤ x).<!-- .element: class="fragment" data-fragment-index="1"-->
+<!-- .element: class="fragment" data-fragment-index="1"-->
    
 
 Take from [Wikipedia](https://en.wikipedia.org/wiki/Leyland_number) 
@@ -299,185 +350,375 @@ V:
 
 
 V:
-## Important functions used in the code (explanation)
-### Pow
-The best way to calculate the power of a number.
-```java
-<!--
-int pow(int n, int p)
-{
-  if(p==0) return 1;
-    
-  else if ( p % 2 == 1 )
-    return n * pow(n,p-1);
-  
-  int a = pow ( n , p%2);
-  return a * a;
-}
--->
- ```
-
- 
-V:
-## Important functions used in the code (explanation)
-### leyland
-```java
-<!--
-IntList v;
-IntList leyland (int n)
-{
-  if (n>13)
-    n=13;
-  v=new IntList();
-  enesimo= new IntList();
-  for(int i=0;i<n;i++)
-    for(int j=0;j<=n-i;j++)
-      {
-          int m = ( pow(i+2,j+2) + pow(j+2,i+2) ); 
-          if(! v.hasValue(m) )
-            v.append(m);
-      }
-   //println(v);
-   v.sort();
-   //println(v);
-   for(int i=0;i<n;i++)
-      enesimo.append(v.get(i));
-   return enesimo;
-}
--->
- ```
-
-V:
 ## Code Processing: 
 ```java
 <!-- 
-IntList v;
-IntList enesimo;
-int pow(int n, int p)
-{
-  if(p==0) return 1;
-    
-  else if ( p % 2 == 1 )
-    return n * pow(n,p-1);
-  int a = pow ( n , p/2);
-  return a * a;
-}
+class Leyland extends Sequence{
+  IntList enesimo, v;
 
-IntList layland (int n)
-{
-  if (n>13)
-    n=13;
-  v=new IntList();
-  enesimo= new IntList();
-  for(int i=0;i<n;i++)
-    for(int j=0;j<=n-i;j++)
-      {
-          int m = ( pow(i+2,j+2) + pow(j+2,i+2) ); 
-          if(! v.hasValue(m) )
-            v.append(m);
-      }
-   //println(v);
-   v.sort();
-   //println(v);
-   for(int i=0;i<n;i++)
-      enesimo.append(v.get(i));
-   return enesimo;
-}
-
-void setup()
-{
-  background(0);
-  //ellipse(200,200,55,55);
-  size(400,400);
-  int n = 12;
-  IntList lay =layland(n);
-  IntList layr = layland(n);
-  layr.sortReverse();
-  
-  for(int i=0;i<lay.size();i++)
+  int pow(int n, int p) //special pow 
+   {
+     if(p==0) return 1;
+      
+     else if ( p % 2 == 1 )
+       return n * pow(n,p-1);
+     int a = pow ( n , p/2);
+     return a * a;
+   }
+  String author()
   {
-    float a = map (layr.get(i),lay.get(0),layr.get(0),lay.get(0),width+width/4);
-    float b = map (lay.get(i),lay.get(0),layr.get(0),0,255);
-    fill(b,0,0);
-    noStroke();
-    ellipse(width/2,height/2,a,a);
+    return "No-Name" ;
+  }
+  String description()
+  {
+    return "Numbers of the form x^y + y^x for any positive integer.";
+  }
+  
+  int py;
+  int px;
+  int compute( int nu )
+  {
+    int n = nu;
+    if ( n > 13)
+      n = 13;
+    v=new IntList();
+    enesimo= new IntList();
+    for(int i=0;i<n;i++)
+      for(int j=0;j<=n - i;j++)
+        {
+            int m = ( pow(i+2,j+2) + pow(j+2,i+2) ); 
+            if(! v.hasValue(m) )
+              v.append(m);
+        }
+     
+     v.sort();
+   //  println(v);
+     for(int i=0;i<nu;i++)
+     {
+       if ( i < v.size())
+        enesimo.append(v.get(i));
+       else
+         enesimo.append(enesimo.get(i - 1));
+   }
+      return enesimo.get(nu-1);  
+}
+  void posy(int p)
+  {
+      py = p-height/2;
+  }
+  
+  void posx(int p)
+  {
+      px= p-width/2;
+  }
+  
+  void sethue(color h)
+  {
+     hue = h; 
+  }
+  
+  
+  
+  void display(int n)
+  {
+    posy(mouseY);
+    posx(mouseX);
+    if ( n > 55 )
+      n = 55;
+    int lay[] = toArray(n);
+    int layr[] = new int[n];
+   // println( lay);
+    for ( int i = 0 ; i < n ; i ++ )
+      layr[n-1-i] = lay[i];
+    
+     
+    for(int i=0;i<n;i++)
+    {
+      float a = map (layr[i],lay[0],layr[0],lay[0],width);
+      float b = map (lay[i],lay[0],layr[0],0,100);
+      fill(hue,100,b);
+
+      //noStroke();
+      stroke(hue,100,30);
+      float x = width/2+  px/(a/b);
+      float y = height/2+py/(a/b);
+      
+      if(y>height)
+       y=height;
+       else if(y<0)
+       y=0;
+      if(x>width)
+        x=width;
+        else if(x<0)
+        x=0;
+      
+      ellipse(x,y,a,a);
+  }
+  
   }
 }
 -->
 ```
 
 
-V:
-## Code JavaScript:
 
+
+H:
+# Composite Numbers
+<!-- .slide: data-background="#7E2121"  -->
+V:
+
+## What is it about?
+
+Explanation of Susseccion <!-- .element: class="fragment" data-fragment-index="1"-->
+
+The final code <!-- .element: class="fragment" data-fragment-index="3"-->
+
+V:
+## Composite Numbers
+
+What is?
+>A composite number is a positive integer that has at least one positive divisor other than one or the number itself. In other words, a composite number is any integer greater than one that is not a prime number.
+<!-- .element: class="fragment" data-fragment-index="1"-->
+   
+
+Take from [Wikipedia](https://en.wikipedia.org/wiki/Leyland_number) 
+
+
+
+V:
+## Code Processing: 
 ```java
 <!-- 
-var circles= 10; 
-    
-    function setup() {
-        
-        createCanvas(400, 400);
-        noLoop();       
+class Composite extends Sequence {
+   String author()
+  {
+     return "No-Name"; 
+  }
+  String description()
+  {
+    return "A composite number is a positive integer that has at least one positive divisor other than one or the number itself. In other words, a composite number is any integer greater than one that is not a prime number.";
+  }
+  
+IntList arr;
+IntList  num_div (int n ){
+  arr = new IntList() ;
+  for ( int i = 1; i<= n ; i ++)
+  {
+    if ( n % i == 0)
+    arr.append (i);
+  }
+  return arr;
+}
+boolean is_comp ( int n ){
+  for ( int i = 2; i < n; i ++)
+    if ( n % i == 0 )
+          return true;
+  return false; 
+}
+int compute ( int n ){
+  int cont = 0;
+  int num = 1;
+  int nth= -1;
+  while (true){
+    if (cont == n )
+      break;
+    if ( is_comp (num))
+    {
+      cont++;
+      nth=num;
+    } 
+    num++;
+  }
+  return nth;
+}
+
+void display(int n )
+{
+  background (0);
+  stroke (250);
+  float base=0, h=0 ;
+  float xpos=0, ypos = 0; 
+  IntList arr = num_div (n);
+  int s = arr.size();
+  float column = arr.get ( (s/2) - 1);
+  float row = arr.get ( s / 2 );
+  if ( s%2 == 1){
+    base = sqrt(width * height /n);
+    h = base;
+    row =  column = sqrt (n) ; 
+  }
+  if ( s % 2 == 0){
+    base = (float )width / column;
+    h=(float )height / row;
+    row = arr.get ( (s/2) - 1);
+    column = arr.get ( s / 2 );
+   }
+  int sq = 1; 
+  for ( int i = 0; i < column ; i ++)
+  {
+    for ( int j = 0; j < row ; j ++)
+    {
+      fill (0);
+      if ( ! is_comp(sq)){ 
+         fill (280  ,50, map ( sq , 0 , n , 0 , 100));
+       }
+      rect ( xpos, ypos, base, h);
+      //println ( xpos + "   " + ypos);
+      xpos = xpos + base;
+      sq++;
+      //println (sq);
     }
-    
-    
-    
-    function draw() {
-        background(0);
-        
-        var lay = leyland();
-        var layr = leyland();
-        layr.reverse();
-        for(var i=0;i<circles;i++)
-        {
-            var a = map(layr[i],lay[0],layr[0],lay[0],width+width/4);
-            var b = map(lay[i],lay[0],layr[0],0,255);
-            //console.log(lay);
-            noStroke();
-            fill(b,0,0);
-            ellipse(width/2,height/2,a,a);
-            
-        }
-
-        }
-        
-
-        
-        function  pow(n, p)
-        {
-            if(p==0) 
-                return 1;
-            else 
-                return n * pow(n,p-1);
-        }
-        
-        function leyland()
-        {
-            var myset = new Set();
-            for(var i=0; i<circles;i++)
-                for(var j=0;j<circles-i;j++)
-                {
-                    var m = (Math.pow(i+2,j+2) + Math.pow(j+2,i+2));
-                    myset.add(m);
-                }
-            //console.log(myset);
-            var arr = Array.from(myset);
-            arr.sort(CompareNumbers);
-            //console.log(arr);
-            return arr.slice(0,circles);
-        }
-        
-        function CompareNumbers(a, b){
-            return a-b; 
-        }
+        xpos = 0;
+        ypos = ypos + h;
+  }
+ }
+}
 -->
 ```
-V: 
 
-##The result 
+H:
+# Representations
+<!-- .slide: data-background="#005050" -->
+V:
 
-<div id='leyland_id'> </div>
+## What is it about?
+Calling classes in processing <!-- .element: class="fragment" data-fragment-index="1"-->
 
+Running Programs in JS <!-- .element: class="fragment" data-fragment-index="2"-->
+
+Custom representation  <!-- .element: class="fragment" data-fragment-index="3"-->
+
+BarChart representation  <!-- .element: class="fragment" data-fragment-index="4"-->
+
+LineChart representation <!-- .element: class="fragment" data-fragment-index="5"-->
+
+CurveFitting representation  <!-- .element: class="fragment" data-fragment-index=6"-->
+
+
+V:
+## Calling Classes
+In processing to change n use UP and Down arrows, to change the susseccion use LEFT and RIGHT arrows.
+
+To change type of representration use characters 'c', 'l', 'b', 'd' in the keyboard;
+
+```java
+
+<!-- 
+// Object declaration
+Sequence sequence;
+int n = 3, seq = 1 , rep = 1;
+//String[] toppings = {"Cheese", "Pepperoni", "Black Olives"};
+String[] nameSeq = { "Composite" , "Abundant" , "Leyland"};
+color value = 0;
+void setup() {
+  size(700,700 );
+  colorMode(HSB,360,100,100,100);
+  // Object init
+  
+}
+
+void mouseMoved() {
+  value = (value + 1) % 360;
+}
+
+void draw() {
+ // noLoop();
+  background(0);
+  
+  
+  if ( seq == 0 )
+    sequence = new Composite();
+  else if ( seq == 1)
+    sequence = new Abundant();
+  else 
+    sequence = new Leyland();
+  
+  sequence.setHue(value);
+
+  
+  if ( rep == 1 )
+    sequence.lineChart(n);
+  if ( rep == 2 )
+    sequence.curveFitting(n); 
+   if ( rep == 3 )
+     sequence.barChart(n);
+   if ( rep == 4 )
+    sequence.display(n);
+    
+    textSize(25);
+  fill ( 0 ,0 ,100);
+  text(nameSeq[seq] + "  n = " + n , 50, 30); 
+}
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      n ++;
+     
+    } else if (keyCode == DOWN) {
+      if ( n >=4 )
+        n --;
+    }
+    else if ( keyCode == LEFT )
+    {
+      if ( seq == 0 )
+        seq = 2;
+      else
+        seq = seq - 1 ;
+    }
+    else if ( keyCode == RIGHT )
+    {
+      seq = (seq+1) % 3;
+    }
+    
+    clear();
+  }
+  if ( key == 'l' || key == 'L')
+      rep = 1;
+   else if ( key == 'c' || key == 'C')
+      rep = 2;
+   else if ( key == 'b' || key == 'B')
+      rep = 3;
+   else if ( key == 'd' || key == 'D')
+      rep = 4;
+}
+-->
+```
+
+V:
+## Running in java script
+The next representations are running JS programs in the presentation. <!-- .element: class="fragment" data-fragment-index="1"-->
+
+Use any key to change the succession. To change n use 'ctrl' and 'alt' keys. <!-- .element: class="fragment" data-fragment-index="2"-->
+
+If you want to see the codes click <!-- .element: class="fragment" data-fragment-index="3"-->
+ [here](https://github.com/FutureUN/PresentationSusseccionsOOP/tree/gh-pages/sketches) <!-- .element: class="fragment" data-fragment-index="3"-->
+ 
+V:
+## Custom Representation
+
+<div id='draw_id'> </div>
+
+V:
+## BarChart Representation
+
+<div id='barChart_id'> </div>
+
+V:
+## LineChart Representation
+
+<div id='lineChart_id'> </div>
+
+V:
+## CurveFitting Representation
+
+<div id='curveChart_id'> </div>
+
+H:
+THANK YOU
+<figure>
+    <img height='300' src='fig/tux.png' />
+</figure>
 
 
 
